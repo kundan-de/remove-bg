@@ -11,9 +11,12 @@ def main():
         "Upload an Image", type=["png", "jpg", "jpeg"], key="uploader"
     )
     if uploaded_file is not None:
-        img = remove_bg(uploaded_file)
+        remove_bg(uploaded_file)
+
         st.success("Background removed successfully!")
-        st.image(img, caption="Processed Image")
+        st.image(tempfile.gettempdir() + "/output.png", caption="Processed Image")
+
+        img = open(tempfile.gettempdir() + "/output.png", "rb").read()
         st.download_button(
             label="Download Image", data=img, file_name="output.png", mime="image/png"
         )
@@ -26,7 +29,6 @@ def remove_bg(input_path: str):
     input = Image.open(input_path)
     output = remove(input)
     output.save(tempfile.gettempdir() + "/output.png")
-    return tempfile.gettempdir() + "/output.png"
 
 
 if __name__ == "__main__":
