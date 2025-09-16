@@ -28,10 +28,10 @@ def main():
         st.info("Please upload an image to remove its background.")
 
 
-def remove_bg(input_path: str):
+def remove_bg(img: bytes):
     """Remove background from the image and save the output."""
 
-    input = Image.open(input_path)
+    input = Image.open(img)
     output = remove(input)
     output.save(OUTPUT_FILE)
 
