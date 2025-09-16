@@ -6,6 +6,8 @@ from PIL import Image
 
 
 def main():
+    """Main function to run the Streamlit app."""
+
     st.title("Background Removal App")
     uploaded_file = st.file_uploader(
         "Upload an Image", type=["png", "jpg", "jpeg"], key="uploader"
@@ -26,6 +28,7 @@ def main():
 
 def remove_bg(input_path: str):
     """Remove background from the image and save the output."""
+
     input = Image.open(input_path)
     output = remove(input)
     output.save(tempfile.gettempdir() + "/output.png")
