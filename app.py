@@ -1,8 +1,10 @@
-import streamlit as st
 import tempfile
 
-from rembg import remove
+import streamlit as st
 from PIL import Image
+from rembg import remove
+
+OUTPUT_FILE = tempfile.gettempdir() + "/output.png"
 
 
 def main():
@@ -16,9 +18,9 @@ def main():
         remove_bg(uploaded_file)
 
         st.success("Background removed successfully!")
-        st.image(tempfile.gettempdir() + "/output.png", caption="Processed Image")
+        st.image(OUTPUT_FILE, caption="Processed Image")
 
-        img = open(tempfile.gettempdir() + "/output.png", "rb").read()
+        img = open(OUTPUT_FILE, "rb").read()
         st.download_button(
             label="Download Image", data=img, file_name="output.png", mime="image/png"
         )
@@ -31,7 +33,7 @@ def remove_bg(input_path: str):
 
     input = Image.open(input_path)
     output = remove(input)
-    output.save(tempfile.gettempdir() + "/output.png")
+    output.save(OUTPUT_FILE)
 
 
 if __name__ == "__main__":
